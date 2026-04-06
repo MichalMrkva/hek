@@ -1,4 +1,4 @@
-package cz.uuk.hek.feature.home.presentation
+package cz.uuk.hek.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

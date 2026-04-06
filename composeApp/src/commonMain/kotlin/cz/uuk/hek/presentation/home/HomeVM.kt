@@ -1,10 +1,9 @@
-package cz.uuk.hek.feature.home.presentation
+package cz.uuk.hek.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.uuk.hek.feature.home.data.HomeRepository
-import cz.uuk.hek.navigation.AppRoute
-import cz.uuk.hek.navigation.NavManager
+import cz.uuk.hek.presentation.navigation.AppRoute
+import cz.uuk.hek.presentation.navigation.NavManager
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +12,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeVM(
-    private val repository: HomeRepository,
     private val navManager: NavManager,
 ) : ViewModel() {
 

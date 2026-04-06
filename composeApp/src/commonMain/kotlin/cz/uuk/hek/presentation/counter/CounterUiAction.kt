@@ -1,4 +1,4 @@
-package cz.uuk.hek.feature.counter.presentation
+package cz.uuk.hek.presentation.counter
 
 sealed interface CounterUiAction {
     data object Increment : CounterUiAction

@@ -1,7 +1,7 @@
-package cz.uuk.hek.feature.counter.presentation
+package cz.uuk.hek.presentation.counter
 
 import androidx.lifecycle.ViewModel
-import cz.uuk.hek.navigation.NavManager
+import cz.uuk.hek.presentation.navigation.NavManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update

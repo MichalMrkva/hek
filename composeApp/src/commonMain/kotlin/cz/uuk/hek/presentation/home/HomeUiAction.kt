@@ -1,4 +1,4 @@
-package cz.uuk.hek.feature.home.presentation
+package cz.uuk.hek.presentation.home
 
 sealed interface HomeUiAction {
     data object Refresh : HomeUiAction

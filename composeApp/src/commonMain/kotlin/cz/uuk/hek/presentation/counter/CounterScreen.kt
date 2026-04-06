@@ -1,4 +1,4 @@
-package cz.uuk.hek.feature.counter.presentation
+package cz.uuk.hek.presentation.counter
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
