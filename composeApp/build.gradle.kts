@@ -46,13 +46,13 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
-            implementation(libs.navigation3.ui)
         }
         commonMain.dependencies {
             implementation(libs.bundles.compose)
             implementation(libs.bundles.koin)
             implementation(libs.bundles.kotlinx)
             implementation(libs.navigation3.runtime)
+            implementation(libs.navigation3.ui)
             implementation(projects.shared)
         }
         commonTest.dependencies {
