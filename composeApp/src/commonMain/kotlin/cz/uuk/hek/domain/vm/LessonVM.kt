@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import cz.uuk.hek.data.LessonRepository
-import cz.uuk.hek.presentation.home.HomeUiAction
+import cz.uuk.hek.domain.model.Answer
+import cz.uuk.hek.domain.model.Question
 import cz.uuk.hek.presentation.lesson.LessonUiAction
 import cz.uuk.hek.presentation.lesson.LessonUiState
-import cz.uuk.hek.presentation.lesson.SwipeDirection
 import cz.uuk.hek.presentation.navigation.AppRoute
 import cz.uuk.hek.presentation.navigation.NavManager
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,8 +33,8 @@ class LessonVM(
         when (action) {
             is LessonUiAction.Finish -> finish()
             is LessonUiAction.SetConfirmForm -> setConfirmForm(action.isOpen)
-            is LessonUiAction.SelectAnswer -> TODO()
-            is LessonUiAction.SelectQuestion -> TODO()
+            is LessonUiAction.SelectAnswer -> selectAnswer(action.answer)
+            is LessonUiAction.SelectQuestion -> selectQuestion(action.question)
         }
     }
 
@@ -51,5 +51,16 @@ class LessonVM(
     private fun finish() = viewModelScope.launch {
         lessonRepository.completeLesson(route.lessonId, 0)
         nav.pop()
+    }
+    private fun selectAnswer(answer: Answer) {
+        _uiState.update { state ->
+            state.copy(
+                selectedAnswer = answer,
+                pickedAnswers = state.pickedAnswers + answer
+            )
+        }
+    }
+    private fun selectQuestion(question: Question){
+        _uiState.update { it.copy(selectedQuestion = question) }
     }
 }

@@ -12,5 +12,6 @@ data class LessonUiState(
     val selectedAnswer: Answer?=null,
     val lesson: Lesson?=null,
     val currentIndex:Int=0,
-    val isFinished: Boolean=false
+    val isFinished: Boolean=false,
+    val pickedAnswers: List<Answer> = emptyList()
 )
