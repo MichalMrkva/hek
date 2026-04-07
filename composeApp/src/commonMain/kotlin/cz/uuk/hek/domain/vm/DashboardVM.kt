@@ -2,6 +2,8 @@ package cz.uuk.hek.domain.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.uuk.hek.data.LessonRepository
+import cz.uuk.hek.domain.model.Lesson
 import cz.uuk.hek.presentation.interfaces.DashboardActions
 import cz.uuk.hek.presentation.uistates.DashboardUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,11 +11,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class DashboardVM: ViewModel() {
+class DashboardVM(
+    private val repository: LessonRepository)
+    : ViewModel() {
 
     private val _uiState= MutableStateFlow(DashboardUiState())
     val uiState: StateFlow<DashboardUiState> = _uiState
-    //private val repository
+
 
     init {
         loadLessons()
@@ -24,7 +28,7 @@ class DashboardVM: ViewModel() {
         {
             is DashboardActions.SetIsLoading -> setLoading(action.isLoading)
             is DashboardActions.LoadLessons -> loadLessons()
-            is DashboardActions.OpenLesson -> setCurrentLesson(action.id)
+            is DashboardActions.OpenLesson -> setCurrentLesson(action.lesson)
         }
     }
     private fun setLoading(isLoading: Boolean)
@@ -33,15 +37,15 @@ class DashboardVM: ViewModel() {
     }
     private fun loadLessons()
     {
-        /*viewModelScope.launch {
-            repository.lessons.collect(it->_uistate.update(lessons=it))
-
-        }*/
+        viewModelScope.launch {
+            val lessons=repository.getLessons()
+            _uiState.update { it.copy(lessons=lessons) }
+        }
     }
 
-    private fun setCurrentLesson(id: String)
+    private fun setCurrentLesson(lesson: Lesson)
     {
-        _uiState.update { it.copy(currentLesson = id) }
+        _uiState.update { it.copy(currentLesson = lesson) }
     }
 
 }
