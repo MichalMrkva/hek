@@ -8,6 +8,7 @@ sealed interface LessonUiAction {
     data class SelectQuestion(val question: Question): LessonUiAction
     data class  SelectAnswer(val answer: Answer): LessonUiAction
     data class SetConfirmForm(val isOpen: Boolean): LessonUiAction
+    data object Complete: LessonUiAction
     data object Finish: LessonUiAction
     data object Back: LessonUiAction
 }

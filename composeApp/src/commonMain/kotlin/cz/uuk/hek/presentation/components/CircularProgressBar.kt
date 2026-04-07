@@ -68,7 +68,7 @@ fun CircularProgressBar(
             Image(
                 painter = painterResource(Res.drawable.logoKotlin),
                 contentDescription = null,
-                modifier = Modifier.size(size - strokeWidth * 2 - 4.dp),
+                modifier = Modifier.size(size - strokeWidth * 2 - 14.dp),
             )
         }
     }

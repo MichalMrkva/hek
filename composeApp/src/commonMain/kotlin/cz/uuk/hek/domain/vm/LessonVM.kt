@@ -33,6 +33,7 @@ class LessonVM(
 
     fun onAction(action: LessonUiAction) {
         when (action) {
+            is LessonUiAction.Complete -> complete()
             is LessonUiAction.Finish -> finish()
             is LessonUiAction.Back -> nav.pop()
             is LessonUiAction.SetConfirmForm -> setConfirmForm(action.isOpen)
@@ -68,8 +69,18 @@ class LessonVM(
         _uiState.update { it.copy(isConfirmOpen = isOpen) }
     }
 
+    private fun complete() {
+        val state = _uiState.value
+        val allQuestions = state.lesson?.cards?.flatMap { it.questions } ?: emptyList()
+        val correct = allQuestions.count { q -> state.answeredQuestions[q.id]?.id == q.correctAnswerId }
+        val score = if (allQuestions.isEmpty()) 0 else (correct * 100) / allQuestions.size
+        _uiState.update { it.copy(result = score) }
+    }
+
     private fun finish() = viewModelScope.launch {
-        lessonRepository.completeLesson(route.lessonId, 0)
+        val state = _uiState.value
+        val score = state.result ?: 0
+        lessonRepository.completeLesson(route.lessonId, score)
         nav.pop()
     }
 }

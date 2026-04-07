@@ -14,4 +14,5 @@ data class LessonUiState(
     val currentIndex: Int = 0,
     val isFinished: Boolean = false,
     val answeredQuestions: Map<Int, Answer> = emptyMap(),
+    val result: Int? = null, // null = not yet evaluated, 0-100 = score percent
 )

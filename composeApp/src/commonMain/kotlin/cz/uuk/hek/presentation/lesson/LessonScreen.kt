@@ -96,22 +96,53 @@ internal fun LessonContent(
                 HorizontalPager(
                     state = pagerState,
                     modifier = Modifier.fillMaxSize(),
+                    userScrollEnabled = state.result == null,
                 ) { index ->
                     if (index < state.lesson.cards.size) {
                         CardView(
                             card = state.lesson.cards[index],
                             selectedQuestion = state.selectedQuestion,
                             answeredQuestions = state.answeredQuestions,
+                            isEvaluated = state.result != null,
                             onAction = onAction,
                         )
                     } else {
+                        val allQuestions = state.lesson.cards.flatMap { it.questions }
+                        val allAnswered = allQuestions.all { q -> state.answeredQuestions.containsKey(q.id) }
+                        val result = state.result
+
                         Column(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-                            Button(onClick = { onAction(LessonUiAction.Finish) }) {
-                                Text("Finish")
+                            if (result != null) {
+                                val correct = allQuestions.count { q ->
+                                    state.answeredQuestions[q.id]?.id == q.correctAnswerId
+                                }
+                                Text(
+                                    text = "Výsledek: $correct / ${allQuestions.size}",
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    modifier = Modifier.padding(bottom = 24.dp),
+                                )
+                                Button(onClick = { onAction(LessonUiAction.Finish) }) {
+                                    Text("Finish")
+                                }
+                            } else {
+                                if (!allAnswered) {
+                                    Text(
+                                        text = "Nejdřív zodpověz všechny otázky.",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+                                        modifier = Modifier.padding(bottom = 24.dp),
+                                    )
+                                }
+                                Button(
+                                    onClick = { onAction(LessonUiAction.Complete) },
+                                    enabled = allAnswered,
+                                ) {
+                                    Text("Dokončit")
+                                }
                             }
                         }
                     }
@@ -126,6 +157,7 @@ fun CardView(
     card: Card,
     selectedQuestion: Question? = null,
     answeredQuestions: Map<Int, Answer> = emptyMap(),
+    isEvaluated: Boolean = false,
     onAction: (LessonUiAction) -> Unit = {},
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -160,6 +192,7 @@ fun CardView(
                 AnswerGrid(
                     question = question,
                     answeredQuestions = answeredQuestions,
+                    isEvaluated = isEvaluated,
                     onAnswerSelected = { answer -> onAction(LessonUiAction.SelectAnswer(answer)) },
                 )
             }
@@ -297,6 +330,7 @@ private fun SlotChip(
 private fun AnswerGrid(
     question: Question,
     answeredQuestions: Map<Int, Answer>,
+    isEvaluated: Boolean = false,
     onAnswerSelected: (Answer) -> Unit,
 ) {
     val currentAnswer = answeredQuestions[question.id]
@@ -319,6 +353,7 @@ private fun AnswerGrid(
                         answer = answer,
                         isSelected = currentAnswer?.id == answer.id,
                         isCorrect = answer.id == question.correctAnswerId,
+                        isEvaluated = isEvaluated,
                         modifier = Modifier.weight(1f),
                         onClick = { onAnswerSelected(answer) },
                     )
@@ -337,13 +372,15 @@ private fun AnswerChip(
     answer: Answer,
     isSelected: Boolean,
     isCorrect: Boolean,
+    isEvaluated: Boolean = false,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     val shape = RoundedCornerShape(50)
     val bgColor = when {
-        isSelected && isCorrect -> MaterialTheme.colorScheme.primary
-        isSelected -> MaterialTheme.colorScheme.error.copy(alpha = 0.8f)
+        isSelected && isEvaluated && isCorrect -> MaterialTheme.colorScheme.primary
+        isSelected && isEvaluated -> MaterialTheme.colorScheme.error.copy(alpha = 0.8f)
+        isSelected -> MaterialTheme.colorScheme.primary
         else -> MaterialTheme.colorScheme.onBackground.copy(alpha = 0.12f)
     }
     val textColor = when {
