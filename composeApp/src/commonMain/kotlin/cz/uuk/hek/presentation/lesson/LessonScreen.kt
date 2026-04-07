@@ -12,10 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.tooling.preview.Preview
+import cz.uuk.hek.domain.vm.LessonVM
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun LessonPage(vm: CounterVM = koinViewModel()) {
+fun LessonPage(vm: LessonVM = koinViewModel()) {
     val state by vm.uiState.collectAsStateWithLifecycle()
     LessonContent(
         state = state,
