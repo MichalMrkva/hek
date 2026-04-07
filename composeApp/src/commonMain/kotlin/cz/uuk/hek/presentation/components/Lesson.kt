@@ -41,7 +41,7 @@ fun Lesson(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onPrimary,
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -49,7 +49,7 @@ fun Lesson(
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onPrimary,
                 )
             }
 
