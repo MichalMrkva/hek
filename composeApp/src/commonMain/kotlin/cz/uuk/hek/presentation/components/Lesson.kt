@@ -25,8 +25,8 @@ fun Lesson(
         shape = shape,
         elevation = CardDefaults.cardElevation(6.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
         )
     ) {
         Row(
@@ -57,7 +57,7 @@ fun Lesson(
 
             CircularProgressBar(
                 percentage = percentage,
-                trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                trackColor = MaterialTheme.colorScheme.outline,
                 progressColor = MaterialTheme.colorScheme.primary,
             )
         }
