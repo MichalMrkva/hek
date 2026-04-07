@@ -7,4 +7,6 @@ data class LessonSummaryDto(
     val id: Int,
     val title: String,
     val description: String,
+    val ownerId: Int,
+    val progress: Int?,
 )

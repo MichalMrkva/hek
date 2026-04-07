@@ -5,14 +5,19 @@ import cz.uuk.hek.db.tables.AnswerTable
 import cz.uuk.hek.db.tables.CardTable
 import cz.uuk.hek.db.tables.LessonTable
 import cz.uuk.hek.db.tables.QuestionTable
+import cz.uuk.hek.db.tables.UserLessonResultTable
 import cz.uuk.hek.di.appModule
+import cz.uuk.hek.dto.CreateQuestionRequest
 import cz.uuk.hek.service.LessonService
+import cz.uuk.hek.service.QuestionService
+import cz.uuk.hek.service.UserLessonResultService
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
@@ -29,7 +34,7 @@ fun main() {
 fun Application.module() {
     Database.connect("jdbc:sqlite:hek.db", driver = "org.sqlite.JDBC")
     transaction {
-        SchemaUtils.create(LessonTable, CardTable, QuestionTable, AnswerTable)
+        SchemaUtils.createMissingTablesAndColumns(LessonTable, CardTable, QuestionTable, AnswerTable, UserLessonResultTable)
     }
     seedIfEmpty()
 
@@ -41,17 +46,38 @@ fun Application.module() {
     }
 
     val lessonService: LessonService by inject()
+    val questionService: QuestionService by inject()
+    val userLessonResultService: UserLessonResultService by inject()
 
     routing {
         get("/lessons") {
-            call.respond(lessonService.getLessons())
+            val userId = call.request.headers["X-User-Id"]?.toIntOrNull()
+                ?: return@get call.respond(HttpStatusCode.BadRequest)
+            call.respond(lessonService.getLessons(userId))
         }
         get("/lessons/{id}") {
+            val userId = call.request.headers["X-User-Id"]?.toIntOrNull()
+                ?: return@get call.respond(HttpStatusCode.BadRequest)
             val id = call.parameters["id"]?.toIntOrNull()
                 ?: return@get call.respond(HttpStatusCode.BadRequest)
-            val lesson = lessonService.getLessonById(id)
+            val lesson = lessonService.getLessonById(id, userId)
                 ?: return@get call.respond(HttpStatusCode.NotFound)
             call.respond(lesson)
+        }
+        post("/lessons/{id}/complete") {
+            val userId = call.request.headers["X-User-Id"]?.toIntOrNull()
+                ?: return@post call.respond(HttpStatusCode.BadRequest)
+            val lessonId = call.parameters["id"]?.toIntOrNull()
+                ?: return@post call.respond(HttpStatusCode.BadRequest)
+            val progress = call.request.headers["X-Progress"]?.toIntOrNull()
+                ?: return@post call.respond(HttpStatusCode.BadRequest)
+            userLessonResultService.complete(userId, lessonId, progress)
+            call.respond(HttpStatusCode.OK)
+        }
+        post("/questions") {
+            val request = call.receive<CreateQuestionRequest>()
+            val question = questionService.createQuestion(request)
+            call.respond(HttpStatusCode.Created, question)
         }
     }
 }

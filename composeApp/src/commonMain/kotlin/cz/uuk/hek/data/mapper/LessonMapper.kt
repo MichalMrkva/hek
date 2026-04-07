@@ -15,12 +15,16 @@ fun LessonSummaryDto.toDomain() = LessonSummary(
     id = id,
     title = title,
     description = description,
+    ownerId = ownerId,
+    progress = progress,
 )
 
 fun LessonDto.toDomain() = Lesson(
     id = id,
     title = title,
     description = description,
+    ownerId = ownerId,
+    progress = progress,
     cards = cards.map { it.toDomain() },
 )
 

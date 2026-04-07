@@ -6,7 +6,7 @@ import cz.uuk.hek.repository.LessonRepository
 
 class LessonService(private val lessonRepository: LessonRepository) {
 
-    fun getLessons(): List<LessonSummaryDto> = lessonRepository.getAll()
+    fun getLessons(userId: Int): List<LessonSummaryDto> = lessonRepository.getAll(userId)
 
-    fun getLessonById(id: Int): LessonDto? = lessonRepository.getById(id)
+    fun getLessonById(id: Int, userId: Int): LessonDto? = lessonRepository.getById(id, userId)
 }
