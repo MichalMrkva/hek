@@ -31,7 +31,7 @@ class LessonVM(
     fun onAction(action: LessonUiAction) {
         when (action) {
             is LessonUiAction.Finish -> TODO()
-            is LessonUiAction.SetConfirmForm -> TODO()
+            is LessonUiAction.SetConfirmForm -> setConfirmForm(action.isOpen)
             is LessonUiAction.SelectAnswer -> TODO()
             is LessonUiAction.SelectCard -> TODO()
             is LessonUiAction.SelectQuestion -> TODO()
@@ -41,7 +41,11 @@ class LessonVM(
     private fun getLessonDetail() = viewModelScope.launch {
         val lesson = lessonRepository.getLesson(route.lessonId)
         _uiState.update {
-            it.copy()
+            it.copy(cards =lesson )
         }
+    }
+    private fun setConfirmForm(isOpen: Boolean)
+    {
+        _uiState.update { it.copy(isConfirmOpen = isOpen) }
     }
 }
