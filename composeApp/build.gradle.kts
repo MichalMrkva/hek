@@ -54,6 +54,7 @@ kotlin {
             implementation(libs.bundles.kotlinx)
             implementation(libs.bundles.ktor.client)
             implementation(libs.navigation.compose)
+            implementation(compose.materialIconsExtended)
             implementation(projects.shared)
         }
         iosMain.dependencies {
