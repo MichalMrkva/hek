@@ -77,7 +77,7 @@ internal fun HomeContent(
                         Lesson(
                             title = lesson.title,
                             description = lesson.description,
-                            percentage = 10,
+                            percentage = lesson.progress ?: 0,
                             modifier = Modifier
                                 .clickable() {
                                     onAction(HomeUiAction.OpenLesson(lesson))
