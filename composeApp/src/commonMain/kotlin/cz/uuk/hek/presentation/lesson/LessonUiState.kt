@@ -7,10 +7,11 @@ import cz.uuk.hek.domain.model.Question
 
 @Immutable
 data class LessonUiState(
-    val isConfirmOpen: Boolean=false,
-    val selectedQuestion: Question?=null,
-    val selectedAnswer: Answer?=null,
-    val lesson: Lesson?=null,
-    val currentIndex:Int=0,
-    val isFinished: Boolean=false
+    val isConfirmOpen: Boolean = false,
+    val selectedQuestion: Question? = null,
+    val selectedAnswer: Answer? = null,
+    val lesson: Lesson? = null,
+    val currentIndex: Int = 0,
+    val isFinished: Boolean = false,
+    val answeredQuestions: Map<Int, Answer> = emptyMap(),
 )

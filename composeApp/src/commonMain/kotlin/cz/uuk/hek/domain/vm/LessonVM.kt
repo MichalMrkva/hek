@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import cz.uuk.hek.data.LessonRepository
+import cz.uuk.hek.domain.model.Answer
+import cz.uuk.hek.domain.model.Question
 import cz.uuk.hek.presentation.home.HomeUiAction
 import cz.uuk.hek.presentation.lesson.LessonUiAction
 import cz.uuk.hek.presentation.lesson.LessonUiState
@@ -33,8 +35,8 @@ class LessonVM(
         when (action) {
             is LessonUiAction.Finish -> finish()
             is LessonUiAction.SetConfirmForm -> setConfirmForm(action.isOpen)
-            is LessonUiAction.SelectAnswer -> TODO()
-            is LessonUiAction.SelectQuestion -> TODO()
+            is LessonUiAction.SelectAnswer -> selectAnswer(action.answer)
+            is LessonUiAction.SelectQuestion -> selectQuestion(action.question)
         }
     }
 
@@ -44,6 +46,23 @@ class LessonVM(
             it.copy(lesson =lesson )
         }
     }
+    private fun selectQuestion(question: Question) {
+        _uiState.update { state ->
+            val newSelected = if (state.selectedQuestion?.id == question.id) null else question
+            state.copy(selectedQuestion = newSelected)
+        }
+    }
+
+    private fun selectAnswer(answer: Answer) {
+        _uiState.update { state ->
+            val question = state.selectedQuestion ?: return@update state
+            state.copy(
+                answeredQuestions = state.answeredQuestions + (question.id to answer),
+                selectedQuestion = null,
+            )
+        }
+    }
+
     private fun setConfirmForm(isOpen: Boolean) {
         _uiState.update { it.copy(isConfirmOpen = isOpen) }
     }
