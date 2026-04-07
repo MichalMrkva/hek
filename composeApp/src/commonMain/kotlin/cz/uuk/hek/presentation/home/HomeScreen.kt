@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import cz.uuk.hek.domain.vm.HomeVM
 import hek.composeapp.generated.resources.Res
 import hek.composeapp.generated.resources.logoKotlin
 import org.koin.compose.viewmodel.koinViewModel

@@ -12,13 +12,13 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 
-object LessonRepository {
+class LessonRepository {
 
     private val client = HttpClient {
         install(ContentNegotiation) { json() }
     }
 
-    private val baseUrl = "http://localhost:$SERVER_PORT"
+    private val baseUrl = "http://$localServerHost:$SERVER_PORT"
 
     suspend fun getLessons(): List<LessonSummary> =
         client.get("$baseUrl/lessons").body<List<LessonSummaryDto>>().map { it.toDomain() }

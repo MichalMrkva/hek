@@ -4,31 +4,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.uuk.hek.data.LessonRepository
 import cz.uuk.hek.domain.model.Lesson
-import cz.uuk.hek.presentation.interfaces.DashboardActions
-import cz.uuk.hek.presentation.uistates.DashboardUiState
+import cz.uuk.hek.presentation.home.HomeUiAction
+import cz.uuk.hek.presentation.home.HomeUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class DashboardVM(
-    private val repository: LessonRepository)
-    : ViewModel() {
+class HomeVM(
+    private val repository: LessonRepository
+) : ViewModel() {
 
-    private val _uiState= MutableStateFlow(DashboardUiState())
-    val uiState: StateFlow<DashboardUiState> = _uiState
+    private val _uiState= MutableStateFlow(HomeUiState())
+    val uiState: StateFlow<HomeUiState> = _uiState
 
 
     init {
         loadLessons()
     }
 
-    fun onDashboardAction(action: DashboardActions){
+    fun onAction(action: HomeUiAction){
         when(action)
         {
-            is DashboardActions.SetIsLoading -> setLoading(action.isLoading)
-            is DashboardActions.LoadLessons -> loadLessons()
-            is DashboardActions.OpenLesson -> setCurrentLesson(action.lesson)
+            is HomeUiAction.SetIsLoading -> setLoading(action.isLoading)
+            is HomeUiAction.LoadLessons -> loadLessons()
+            is HomeUiAction.OpenLesson -> setCurrentLesson(action.lesson)
         }
     }
     private fun setLoading(isLoading: Boolean)
