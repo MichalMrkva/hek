@@ -34,6 +34,7 @@ class LessonVM(
     fun onAction(action: LessonUiAction) {
         when (action) {
             is LessonUiAction.Finish -> finish()
+            is LessonUiAction.Back -> nav.pop()
             is LessonUiAction.SetConfirmForm -> setConfirmForm(action.isOpen)
             is LessonUiAction.SelectAnswer -> selectAnswer(action.answer)
             is LessonUiAction.SelectQuestion -> selectQuestion(action.question)

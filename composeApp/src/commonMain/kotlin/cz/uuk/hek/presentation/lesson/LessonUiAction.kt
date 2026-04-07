@@ -9,5 +9,6 @@ sealed interface LessonUiAction {
     data class  SelectAnswer(val answer: Answer): LessonUiAction
     data class SetConfirmForm(val isOpen: Boolean): LessonUiAction
     data object Finish: LessonUiAction
+    data object Back: LessonUiAction
 }
 enum class SwipeDirection { Left, Right }
