@@ -49,18 +49,19 @@ internal fun HomeContent(
         ) {
             // ---------- TITLE ----------
             Box(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().padding(bottom=20.dp)
             ) {
                 Image(
                     painter = painterResource(Res.drawable.logoKotlin),
                     contentDescription = null,
                     modifier = Modifier
                         .size(80.dp)
-                        .padding(start = 16.dp, top = 36.dp) // ← margin from left
+                        .padding(start = 16.dp, top = 36.dp)
                         .align(Alignment.CenterStart)
                 )
             }
-            Lesson("Název", description = "Náš popis", percentage = 30, icon = null)
+
+            Lesson("Název", description = "In this course you will learn how to use conditions", percentage = 30)
 
 
         }
