@@ -8,6 +8,7 @@ import cz.uuk.hek.data.LessonRepository
 import cz.uuk.hek.presentation.home.HomeUiAction
 import cz.uuk.hek.presentation.lesson.LessonUiAction
 import cz.uuk.hek.presentation.lesson.LessonUiState
+import cz.uuk.hek.presentation.lesson.SwipeDirection
 import cz.uuk.hek.presentation.navigation.AppRoute
 import cz.uuk.hek.presentation.navigation.NavManager
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,19 +34,31 @@ class LessonVM(
             is LessonUiAction.Finish -> TODO()
             is LessonUiAction.SetConfirmForm -> setConfirmForm(action.isOpen)
             is LessonUiAction.SelectAnswer -> TODO()
-            is LessonUiAction.SelectCard -> TODO()
             is LessonUiAction.SelectQuestion -> TODO()
+            is LessonUiAction.Swipe -> TODO()
         }
     }
 
     private fun getLessonDetail() = viewModelScope.launch {
         val lesson = lessonRepository.getLesson(route.lessonId)
         _uiState.update {
-            it.copy(cards =lesson )
+            it.copy(lesson =lesson )
         }
     }
     private fun setConfirmForm(isOpen: Boolean)
     {
         _uiState.update { it.copy(isConfirmOpen = isOpen) }
+    }
+    private fun swipe(swipeDirection: SwipeDirection) {
+        when (swipeDirection) {
+            SwipeDirection.Left -> {
+                val newCurrentCard=_uiState.value.lesson?.cards[_uiState.value.currentIndex-1]
+                _uiState.update { it.copy(currentIndex = it.currentIndex-1, currentCard = newCurrentCard)}
+            }
+            SwipeDirection.Right -> {
+                val newCurrentCard=_uiState.value.lesson?.cards[_uiState.value.currentIndex+1]
+                _uiState.update { it.copy(currentIndex = it.currentIndex+1, currentCard = newCurrentCard)}
+            }
+        }
     }
 }

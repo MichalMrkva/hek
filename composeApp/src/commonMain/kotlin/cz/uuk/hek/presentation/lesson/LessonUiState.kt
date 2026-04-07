@@ -12,5 +12,6 @@ data class LessonUiState(
     val selectedQuestion: Question?=null,
     val selectedAnswer: Answer?=null,
     val currentCard: Card?=null,
-    val cards: Lesson?=null
+    val lesson: Lesson?=null,
+    val currentIndex:Int=0
 )
