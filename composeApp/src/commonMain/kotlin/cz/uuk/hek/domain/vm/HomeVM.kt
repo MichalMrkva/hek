@@ -8,10 +8,12 @@ import cz.uuk.hek.presentation.home.HomeUiAction
 import cz.uuk.hek.presentation.home.HomeUiState
 import cz.uuk.hek.presentation.navigation.AppRoute
 import cz.uuk.hek.presentation.navigation.NavManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 
 class HomeVM(
     private val repository: LessonRepository,
@@ -41,8 +43,10 @@ class HomeVM(
     private fun loadLessons()
     {
         viewModelScope.launch {
+          _uiState.update { it.copy(isLoading = true) }
             val lessons=repository.getLessons()
-            _uiState.update { it.copy(lessons=lessons) }
+          delay(500.milliseconds)
+            _uiState.update { it.copy(lessons=lessons, isLoading = false) }
         }
     }
 

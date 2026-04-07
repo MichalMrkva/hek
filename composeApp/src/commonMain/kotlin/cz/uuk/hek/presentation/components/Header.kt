@@ -20,7 +20,7 @@ import hek.composeapp.generated.resources.logoKotlin
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun Header() {
+fun Header(refresh:Unit) {
     val theme = LocalTheme.current
     Box(
         modifier = Modifier.fillMaxWidth()
@@ -33,6 +33,20 @@ fun Header() {
                 .padding(start = 16.dp, top = 36.dp)
                 .align(Alignment.CenterStart)
         )
+      // Refresh button
+      IconButton(
+        onClick = theme.toggle,
+        modifier = Modifier
+          .align(Alignment.CenterEnd)
+          .padding(end = 16.dp, top = 36.dp)
+      ) {
+        Icon(
+          imageVector = if (theme.isDark) Icons.Filled.LightMode else Icons.Filled.DarkMode,
+          contentDescription = if (theme.isDark) "Přepnout na světlý režim" else "Přepnout na tmavý režim",
+        )
+      }
+
+      // Theme change button
         IconButton(
             onClick = theme.toggle,
             modifier = Modifier
