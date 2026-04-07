@@ -14,11 +14,11 @@ fun seedIfEmpty() {
         if (LessonTable.selectAll().count() > 0) return@transaction
 
         // ─────────────────────────────────────────────
-        // Lesson 1: Základy Kotlinu
+        // Lesson 1: Kotlin Basics
         // ─────────────────────────────────────────────
         val lesson1Id = LessonTable.insert {
-            it[title] = "Základy Kotlinu"
-            it[description] = "Proměnné, typy, podmínky a smyčky."
+            it[title] = "Kotlin Basics"
+            it[description] = "Variables, types, conditions and loops."
         }[LessonTable.id]
 
         // Card 1 – val vs var
@@ -97,14 +97,14 @@ fun seedIfEmpty() {
         QuestionTable.update({ QuestionTable.id eq l1c3q2 }) { it[correctAnswerId] = l1c3q2a1 }
 
         // ─────────────────────────────────────────────
-        // Lesson 2: Funkce a lambdy
+        // Lesson 2: Functions and Lambdas
         // ─────────────────────────────────────────────
         val lesson2Id = LessonTable.insert {
-            it[title] = "Funkce a lambdy"
-            it[description] = "Funkce, výchozí parametry, lambda výrazy."
+            it[title] = "Functions and Lambdas"
+            it[description] = "Functions, default parameters, lambda expressions."
         }[LessonTable.id]
 
-        // Card 1 – deklarace funkcí
+        // Card 1 – function declarations
         val l2c1 = CardTable.insert { it[lessonId] = lesson2Id }[CardTable.id]
 
         val l2c1q1 = QuestionTable.insert {
@@ -129,7 +129,7 @@ fun seedIfEmpty() {
         AnswerTable.insert { it[questionId] = l2c1q2; it[text] = "::" }
         QuestionTable.update({ QuestionTable.id eq l2c1q2 }) { it[correctAnswerId] = l2c1q2a1 }
 
-        // Card 2 – lambda a higher-order funkce
+        // Card 2 – lambda and higher-order functions
         val l2c2 = CardTable.insert { it[lessonId] = lesson2Id }[CardTable.id]
 
         val l2c2q1 = QuestionTable.insert {
@@ -155,11 +155,11 @@ fun seedIfEmpty() {
         QuestionTable.update({ QuestionTable.id eq l2c2q2 }) { it[correctAnswerId] = l2c2q2a1 }
 
         // ─────────────────────────────────────────────
-        // Lesson 3: Třídy a OOP
+        // Lesson 3: Classes and OOP
         // ─────────────────────────────────────────────
         val lesson3Id = LessonTable.insert {
-            it[title] = "Třídy a OOP"
-            it[description] = "Data classes, dědičnost a přepisování metod."
+            it[title] = "Classes and OOP"
+            it[description] = "Data classes, inheritance and method overriding."
         }[LessonTable.id]
 
         // Card 1 – data class
@@ -187,7 +187,7 @@ fun seedIfEmpty() {
         AnswerTable.insert { it[questionId] = l3c1q2; it[text] = "u[0]" }
         QuestionTable.update({ QuestionTable.id eq l3c1q2 }) { it[correctAnswerId] = l3c1q2a1 }
 
-        // Card 2 – dědičnost
+        // Card 2 – inheritance
         val l3c2 = CardTable.insert { it[lessonId] = lesson3Id }[CardTable.id]
 
         val l3c2q1 = QuestionTable.insert {
@@ -213,11 +213,11 @@ fun seedIfEmpty() {
         QuestionTable.update({ QuestionTable.id eq l3c2q2 }) { it[correctAnswerId] = l3c2q2a1 }
 
         // ─────────────────────────────────────────────
-        // Lesson 4: Kolekce
+        // Lesson 4: Collections
         // ─────────────────────────────────────────────
         val lesson4Id = LessonTable.insert {
-            it[title] = "Kolekce"
-            it[description] = "Práce s listy, mapami a funkcionálními operacemi."
+            it[title] = "Collections"
+            it[description] = "Working with lists, maps and functional operations."
         }[LessonTable.id]
 
         // Card 1 – map / filter / reduce
@@ -275,7 +275,7 @@ fun seedIfEmpty() {
         // ─────────────────────────────────────────────
         val lesson5Id = LessonTable.insert {
             it[title] = "Coroutines"
-            it[description] = "Asynchronní kód s Kotlin coroutines."
+            it[description] = "Asynchronous code with Kotlin coroutines."
         }[LessonTable.id]
 
         // Card 1 – suspend / launch / async

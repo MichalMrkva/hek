@@ -53,7 +53,7 @@ internal fun HomeContent(
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            Header(refresh=onAction(HomeUiAction.LoadLessons))
+            Header(refresh = { onAction(HomeUiAction.LoadLessons) })
         }
     ) { paddingValues ->
         if (state.isLoading || state.lessons == null) {
