@@ -27,8 +27,8 @@ fun LessonPage(vm: CounterVM = koinViewModel()) {
 @Preview
 @Composable
 internal fun LessonContent(
-    state: CounterUiState = CounterUiState(),
-    onAction: (CounterUiAction) -> Unit = {},
+    state: LessonUiState = LessonUiState(),
+    onAction: (LessonUiAction) -> Unit = {},
 ) {
     Scaffold { paddingValues ->
         Column(
