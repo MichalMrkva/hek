@@ -3,17 +3,19 @@ package cz.uuk.hek.domain.vm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.uuk.hek.data.LessonRepository
-import cz.uuk.hek.domain.model.Lesson
 import cz.uuk.hek.domain.model.LessonSummary
 import cz.uuk.hek.presentation.home.HomeUiAction
 import cz.uuk.hek.presentation.home.HomeUiState
+import cz.uuk.hek.presentation.navigation.AppRoute
+import cz.uuk.hek.presentation.navigation.NavManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeVM(
-    private val repository: LessonRepository
+    private val repository: LessonRepository,
+    private val nav: NavManager
 ) : ViewModel() {
 
     private val _uiState= MutableStateFlow(HomeUiState())
@@ -44,9 +46,8 @@ class HomeVM(
         }
     }
 
-    private fun setCurrentLesson(lesson: LessonSummary)
-    {
-        _uiState.update { it.copy(currentLesson = lesson) }
+    private fun setCurrentLesson(lesson: LessonSummary) {
+        nav.navigateTo(AppRoute.Lesson(lesson.id))
     }
 
 }

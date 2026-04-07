@@ -24,6 +24,6 @@ fun AppNavGraph() {
         startDestination = AppRoute.Home,
     ) {
         composable<AppRoute.Home> { HomePage() }
-        composable<AppRoute.Counter> { LessonPage() }
+        composable<AppRoute.Lesson> { LessonPage() }
     }
 }

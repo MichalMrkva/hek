@@ -1,5 +1,6 @@
 package cz.uuk.hek.presentation.navigation
 
+import cz.uuk.hek.domain.model.LessonSummary
 import kotlinx.serialization.Serializable
 
 sealed interface AppRoute {
@@ -7,5 +8,5 @@ sealed interface AppRoute {
     data object Home : AppRoute
 
     @Serializable
-    data object Counter : AppRoute
+    data class Lesson(val lessonId: Int) : AppRoute
 }

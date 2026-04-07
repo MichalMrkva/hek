@@ -5,5 +5,5 @@ import org.koin.core.module.Module
 
 val appModules: List<Module> = listOf(
     navigationModule, homeModule,
-    counterModule, repositoryModule,
+    lessonModule, repositoryModule,
 )

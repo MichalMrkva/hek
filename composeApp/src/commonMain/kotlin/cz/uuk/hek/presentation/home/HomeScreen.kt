@@ -2,6 +2,7 @@ package cz.uuk.hek.presentation.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -76,7 +77,11 @@ internal fun HomeContent(
                         Lesson(
                             title = lesson.title,
                             description = lesson.description,
-                            percentage = 10
+                            percentage = 10,
+                            modifier = Modifier
+                                .clickable() {
+                                    onAction(HomeUiAction.OpenLesson(lesson))
+                                }
                         )
                     }
                 }
