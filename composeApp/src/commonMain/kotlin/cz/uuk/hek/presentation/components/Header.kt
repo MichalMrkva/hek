@@ -2,12 +2,14 @@ package cz.uuk.hek.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -33,16 +35,24 @@ fun Header(refresh: () -> Unit) {
                 .padding(start = 16.dp, top = 36.dp)
                 .align(Alignment.CenterStart)
         )
-        IconButton(
-            onClick = theme.toggle,
+        Row(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
-                .padding(end = 16.dp, top = 36.dp)
+                .padding(end = 8.dp, top = 36.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
-                imageVector = if (theme.isDark) Icons.Filled.LightMode else Icons.Filled.DarkMode,
-                contentDescription = if (theme.isDark) "Switch to light mode" else "Switch to dark mode",
-            )
+            IconButton(onClick = refresh) {
+                Icon(
+                    imageVector = Icons.Filled.Refresh,
+                    contentDescription = "Refresh",
+                )
+            }
+            IconButton(onClick = theme.toggle) {
+                Icon(
+                    imageVector = if (theme.isDark) Icons.Filled.LightMode else Icons.Filled.DarkMode,
+                    contentDescription = if (theme.isDark) "Switch to light mode" else "Switch to dark mode",
+                )
+            }
         }
     }
 }
