@@ -5,7 +5,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import cz.uuk.hek.presentation.counter.CounterPage
+import cz.uuk.hek.presentation.lesson.LessonPage
 import cz.uuk.hek.presentation.home.HomePage
 import org.koin.compose.koinInject
 
@@ -24,6 +24,6 @@ fun AppNavGraph() {
         startDestination = AppRoute.Home,
     ) {
         composable<AppRoute.Home> { HomePage() }
-        composable<AppRoute.Counter> { CounterPage() }
+        composable<AppRoute.Counter> { LessonPage() }
     }
 }

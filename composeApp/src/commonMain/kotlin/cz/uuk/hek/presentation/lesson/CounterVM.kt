@@ -1,4 +1,4 @@
-package cz.uuk.hek.presentation.counter
+package cz.uuk.hek.presentation.lesson
 
 import androidx.lifecycle.ViewModel
 import cz.uuk.hek.presentation.navigation.NavManager

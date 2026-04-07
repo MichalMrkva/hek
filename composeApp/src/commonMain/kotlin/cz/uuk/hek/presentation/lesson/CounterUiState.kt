@@ -1,4 +1,4 @@
-package cz.uuk.hek.presentation.counter
+package cz.uuk.hek.presentation.lesson
 
 import androidx.compose.runtime.Immutable
 

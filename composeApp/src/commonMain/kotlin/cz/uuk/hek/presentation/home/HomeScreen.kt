@@ -1,7 +1,6 @@
 package cz.uuk.hek.presentation.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cz.uuk.hek.domain.vm.HomeVM
-import cz.uuk.hek.presentation.components.Lesson
 import hek.composeapp.generated.resources.Res
 import hek.composeapp.generated.resources.logoKotlin
 import org.koin.compose.viewmodel.koinViewModel
@@ -45,20 +41,22 @@ internal fun HomeContent(
     state: HomeUiState = HomeUiState(),
     onAction: (HomeUiAction) -> Unit = {},
 ) {
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
-        topBar = {
+    Scaffold { paddingValues ->
+        Column(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            Header()
+            // ---------- TITLE ----------
+            /*
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surface)
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Image(
                     painter = painterResource(Res.drawable.logoKotlin),
                     contentDescription = null,
                     modifier = Modifier
                         .size(80.dp)
-                        .padding(start = 16.dp, top = 36.dp)
+                        .padding(start = 16.dp, top = 36.dp) // ← margin from left
                         .align(Alignment.CenterStart)
                 )
             }
@@ -93,6 +91,9 @@ internal fun HomeContent(
                     }
                 }
             }
+
+             */
+
         }
     }
 }
