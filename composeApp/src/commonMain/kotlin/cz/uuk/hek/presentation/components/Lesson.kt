@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun LessonCard(
+fun Lesson(
     title: String,
     description: String,
     percentage: Int,
-    icon: ImageVector,
+    icon: ImageVector?,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -35,7 +35,7 @@ fun LessonCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
+            /*
             // Icon container
             Box(
                 modifier = Modifier
@@ -44,12 +44,16 @@ fun LessonCard(
                     .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)),
                 contentAlignment = Alignment.Center
             ) {
+                
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary
                 )
+
             }
+            */
+
 
             Spacer(modifier = Modifier.width(12.dp))
 
