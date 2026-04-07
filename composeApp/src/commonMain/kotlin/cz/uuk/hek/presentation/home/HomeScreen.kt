@@ -1,9 +1,15 @@
 package cz.uuk.hek.presentation.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,8 +17,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import hek.composeapp.generated.resources.Res
+import hek.composeapp.generated.resources.logoKotlin
 import org.koin.compose.viewmodel.koinViewModel
+import org.jetbrains.compose.resources.painterResource
+
 
 @Composable
 fun HomePage(vm: HomeVM = koinViewModel()) {
@@ -32,13 +43,21 @@ internal fun HomeContent(
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
         ) {
-            Text("Home")
-            Button(onClick = { onAction(HomeUiAction.NavigateToCounter) }) {
-                Text("Go to Counter")
+            // ---------- TITLE ----------
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Image(
+                    painter = painterResource(Res.drawable.logoKotlin),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(80.dp)
+                        .padding(start = 16.dp, top = 36.dp) // ← margin from left
+                        .align(Alignment.CenterStart)
+                )
             }
+
         }
     }
 }
