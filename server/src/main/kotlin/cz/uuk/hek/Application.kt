@@ -46,7 +46,7 @@ fun Application.module() {
         get("/lessons") {
             call.respond(lessonService.getLessons())
         }
-        get("/lesson/{id}") {
+        get("/lessons/{id}") {
             val id = call.parameters["id"]?.toIntOrNull()
                 ?: return@get call.respond(HttpStatusCode.BadRequest)
             val lesson = lessonService.getLessonById(id)

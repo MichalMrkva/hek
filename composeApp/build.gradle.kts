@@ -46,20 +46,34 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(libs.bundles.compose)
             implementation(libs.bundles.koin)
             implementation(libs.bundles.kotlinx)
+            implementation(libs.bundles.ktor.client)
             implementation(libs.navigation.compose)
             implementation(projects.shared)
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.java)
+        }
+        val jsAndWasmMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(libs.ktor.client.js)
+            }
+        }
+        jsMain.get().dependsOn(jsAndWasmMain)
+        wasmJsMain.get().dependsOn(jsAndWasmMain)
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
     }
 }

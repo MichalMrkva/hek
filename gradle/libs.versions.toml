@@ -66,6 +66,14 @@ ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negoti
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm", version.ref = "ktor" }
 ktor-server-test-host = { module = "io.ktor:ktor-server-test-host-jvm", version.ref = "ktor" }
 
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
+ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
+
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
@@ -85,6 +93,7 @@ koin = ["koin-core", "koin-compose", "koin-compose-viewmodel"]
 kotlinx = ["kotlinx-serialization-json", "kotlinx-datetime"]
 exposed = ["exposed-core", "exposed-dao", "exposed-jdbc"]
 ktor-server = ["ktor-server-core", "ktor-server-netty", "ktor-server-content-negotiation", "ktor-serialization-kotlinx-json"]
+ktor-client = ["ktor-client-core", "ktor-client-content-negotiation", "ktor-client-serialization"]
 androidx-test = ["androidx-test-ext-junit", "androidx-espresso-core"]
 
 [plugins]
