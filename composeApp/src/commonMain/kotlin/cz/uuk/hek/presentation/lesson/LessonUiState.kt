@@ -2,7 +2,6 @@ package cz.uuk.hek.presentation.lesson
 
 import androidx.compose.runtime.Immutable
 import cz.uuk.hek.domain.model.Answer
-import cz.uuk.hek.domain.model.Card
 import cz.uuk.hek.domain.model.Lesson
 import cz.uuk.hek.domain.model.Question
 
@@ -11,7 +10,7 @@ data class LessonUiState(
     val isConfirmOpen: Boolean=false,
     val selectedQuestion: Question?=null,
     val selectedAnswer: Answer?=null,
-    val currentCard: Card?=null,
     val lesson: Lesson?=null,
-    val currentIndex:Int=0
+    val currentIndex:Int=0,
+    val isFinished: Boolean=false
 )

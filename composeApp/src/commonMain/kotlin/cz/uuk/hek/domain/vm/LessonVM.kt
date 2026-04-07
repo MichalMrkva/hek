@@ -35,7 +35,7 @@ class LessonVM(
             is LessonUiAction.SetConfirmForm -> setConfirmForm(action.isOpen)
             is LessonUiAction.SelectAnswer -> TODO()
             is LessonUiAction.SelectQuestion -> TODO()
-            is LessonUiAction.Swipe -> TODO()
+            is LessonUiAction.Swipe -> swipe(action.direction)
         }
     }
 
@@ -49,15 +49,19 @@ class LessonVM(
     {
         _uiState.update { it.copy(isConfirmOpen = isOpen) }
     }
-    private fun swipe(swipeDirection: SwipeDirection) {
-        when (swipeDirection) {
-            SwipeDirection.Left -> {
-                val newCurrentCard=_uiState.value.lesson?.cards[_uiState.value.currentIndex-1]
-                _uiState.update { it.copy(currentIndex = it.currentIndex-1, currentCard = newCurrentCard)}
+    private fun swipe(direction: SwipeDirection) {
+        _uiState.update { state ->
+            val lesson = state.lesson ?: return@update state
+            val cards = lesson.cards
+
+            val newIndex = when (direction) {
+                SwipeDirection.Left -> state.currentIndex - 1
+                SwipeDirection.Right -> state.currentIndex + 1
             }
-            SwipeDirection.Right -> {
-                val newCurrentCard=_uiState.value.lesson?.cards[_uiState.value.currentIndex+1]
-                _uiState.update { it.copy(currentIndex = it.currentIndex+1, currentCard = newCurrentCard)}
+            if (newIndex in cards.indices) {
+                state.copy(currentIndex = newIndex)
+            } else {
+                state.copy(isFinished = true)
             }
         }
     }

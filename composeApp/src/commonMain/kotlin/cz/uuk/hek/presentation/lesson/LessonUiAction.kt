@@ -1,7 +1,6 @@
 package cz.uuk.hek.presentation.lesson
 
 import cz.uuk.hek.domain.model.Answer
-import cz.uuk.hek.domain.model.Card
 import cz.uuk.hek.domain.model.LessonSummary
 import cz.uuk.hek.domain.model.Question
 
