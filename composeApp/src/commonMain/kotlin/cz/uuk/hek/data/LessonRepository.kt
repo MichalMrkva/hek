@@ -1,6 +1,9 @@
 package cz.uuk.hek.data
 
 import cz.uuk.hek.SERVER_PORT
+import cz.uuk.hek.data.mapper.toDomain
+import cz.uuk.hek.domain.model.Lesson
+import cz.uuk.hek.domain.model.LessonSummary
 import cz.uuk.hek.dto.LessonDto
 import cz.uuk.hek.dto.LessonSummaryDto
 import io.ktor.client.HttpClient
@@ -17,9 +20,9 @@ object LessonRepository {
 
     private val baseUrl = "http://localhost:$SERVER_PORT"
 
-    suspend fun getLessons(): List<LessonSummaryDto> =
-        client.get("$baseUrl/lessons").body()
+    suspend fun getLessons(): List<LessonSummary> =
+        client.get("$baseUrl/lessons").body<List<LessonSummaryDto>>().map { it.toDomain() }
 
-    suspend fun getLesson(id: Int): LessonDto =
-        client.get("$baseUrl/lessons/$id").body()
+    suspend fun getLesson(id: Int): Lesson =
+        client.get("$baseUrl/lessons/$id").body<LessonDto>().toDomain()
 }
