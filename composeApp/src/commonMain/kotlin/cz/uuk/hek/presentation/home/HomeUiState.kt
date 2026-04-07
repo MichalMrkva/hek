@@ -8,5 +8,5 @@ import cz.uuk.hek.domain.model.LessonSummary
 data class HomeUiState(
     val isLoading: Boolean=false,
     val lessons: List<LessonSummary>?=null,
-    val currentLesson: Lesson?=null
+    val currentLesson: LessonSummary?=null
 )

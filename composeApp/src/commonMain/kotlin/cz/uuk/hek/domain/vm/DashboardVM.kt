@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.uuk.hek.data.LessonRepository
 import cz.uuk.hek.domain.model.Lesson
+import cz.uuk.hek.domain.model.LessonSummary
 import cz.uuk.hek.presentation.home.HomeUiAction
 import cz.uuk.hek.presentation.home.HomeUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,7 +44,7 @@ class HomeVM(
         }
     }
 
-    private fun setCurrentLesson(lesson: Lesson)
+    private fun setCurrentLesson(lesson: LessonSummary)
     {
         _uiState.update { it.copy(currentLesson = lesson) }
     }
